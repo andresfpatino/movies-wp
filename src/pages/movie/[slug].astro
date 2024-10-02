@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AstroLogo from '../../components/AstroLogo.astro';
+import { Image } from 'astro:assets';
+
+const baseUrl = Astro.site || '';
+
+export async function getStaticPaths() {
+    const API_URL = 'http://localhost:8881';
+    let movies = [];
+
+    try {
+        const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            throw new Error(`Error fetching movies: ${response.status} ${response.statusText} - ${errorDetails}`);
+        }
+        movies = await response.json();
+    } catch (error) {
+        console.error('Error loading movies:', error);
+    }
+
+    return movies.map((movie) => ({
+        params: { slug: movie.slug },
+    }));
+}
+
+const API_URL = 'http://localhost:8881';
+let movies = [];
+
+try {
+    const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
+    if (!response.ok) {
+        const errorDetails = await response.text();
+        throw new Error(`Error fetching movies: ${response.status} ${response.statusText} - ${errorDetails}`);
+    }
+    movies = await response.json();
+} catch (error) {
+    console.error('Error loading movies:', error);
+}
+
+const { slug } = Astro.params;
+const movie = movies.find(movie => movie.slug === slug);
+---
+
+<Layout title="Movie WP + Astro">
+    <main>
+        <AstroLogo />
+        <h1>Movie <br> <span class="text-gradient">{movie.title}</span></h1>
+        <div class="movie-detail">
+            <Image
+                class="poster"
+                src={movie.poster_url}
+                alt={movie.title}
+                width="600"
+                height="900"
+                loading="eager"/>
+            <div class="movie-info">
+                <span class="release"> <b>Release:</b> {movie.release} </span>
+                <span class="runtime"> <b> Runtime:</b> {movie.runtime} </span>
+                <span class="genres">  <b>Genres:</b> {movie.genres} </span>
+                <span class="overview" set:html={movie.overview}></span>
+            </div>
+        </div>
+        <a href={`${baseUrl}/`} class="back"><span>&larr;</span> Back</a>
+    </main>
+</Layout>
+
+<style>
+    h1 {
+        font-size: 2rem;
+    }
+    .text-gradient {
+        font-size: 4rem;
+    }
+    .back {
+        display: block;
+        background-color: rgb( 136, 58, 234);
+        color: #13151a;
+        font-weight: 700;
+        margin: 0 auto;
+        padding: 10px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        width: max-content;
+    }
+    .movie-detail{
+        margin: 24px 0;
+		padding: calc(1.5rem - 1px);
+		border-radius: 8px;
+		color: white;
+		background-color: #23262d;
+		opacity: 0.8;
+        display: grid;
+        font-size: 16px;
+        font-weight: 300;
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+    }
+
+    .poster {
+        border-radius: 8px;
+        width: 100%;
+        height: auto;
+    }
+    .movie-info span {
+        display: block;
+        margin-bottom: 12px;
+    }
+    .release{
+
+    }
+    .genres{
+
+    }
+    .runtime{
+
+    }
+    .overview{
+
+    }
+</style>
