@@ -1,24 +1,24 @@
 ---
 interface Props {
 	title: string;
-	body: string;
+	release: string;
 	href: string;
+	body?: string;
+	image: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, release, body, image } = Astro.props;
 ---
 
 <li class="link-card">
 	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
+		<img class="poster" src={image} alt={title}>
+		<h2>{title} <span>&rarr;</span></h2>
+		<p>{release}</p>
+		<div class="excerpt" set:html={body}></div>
 	</a>
 </li>
+
 <style>
 	.link-card {
 		list-style: none;
@@ -46,6 +46,10 @@ const { href, title, body } = Astro.props;
 		margin: 0;
 		font-size: 1.25rem;
 		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.poster {
+		width: 100%;
+		border-radius: 6px;
 	}
 	p {
 		margin-top: 0.5rem;
