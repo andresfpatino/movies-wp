@@ -1,4 +1,5 @@
 ---
+import { fade } from "astro:transitions";
 interface Props {
 	title: string;
 	release: string;
@@ -10,13 +11,13 @@ interface Props {
 const { href, title, release, body, image } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<img class="poster" src={image} alt={title}>
-		<h2>{title} <span>&rarr;</span></h2>
-		<p>{release}</p>
-		<div class="excerpt" set:html={body}></div>
-	</a>
+<li class="link-card" transition:animate={fade({ duration: "2s" })}>
+    <a href={href}>
+        <img class="poster" src={image} alt={title}>
+        <h2>{title} <span>&rarr;</span></h2>
+        <p>{release}</p>
+        <div class="excerpt" set:html={body}></div>
+    </a>
 </li>
 
 <style>

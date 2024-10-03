@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import AstroLogo from '../components/AstroLogo.astro';
+import { slideInDown } from '../utils/animations';
 
 /**
  * Fetches a list of movies from the WordPress REST API and assigns it to the `movies` array.
@@ -19,25 +20,22 @@ try {
 } catch (error) {
 	console.error('Error loading movies:', error);
 }
-
-// console.log(movies);
 ---
 
 <Layout title="Movies WP + Astro">
 	<main>
-		<AstroLogo />
-		<h1>Movies <span class="text-gradient">WP</span> + <span class="text-gradient">Astro JS</span></h1>
+		<AstroLogo/>
+		<h1 transition:animate={slideInDown}>Movies <span class="text-gradient">WP</span> + <span class="text-gradient">Astro JS</span></h1>
 		<ul role="list" class="card-grid">
 			{movies.map(movie => (
 				<Card
-					client:visible
 					title={movie.title}
 					release={movie.release}
 					href={`/movie/${movie.slug}/`}
 					image={movie.poster_url}
 				/>
 			))}
-		  </ul>
+		</ul>
 	</main>
 </Layout>
 
