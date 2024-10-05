@@ -60,11 +60,11 @@ const movie = movies.find(movie => movie.slug === slug);
                 height="900"
                 loading="eager"/>
             <div class="movie-info">
-                <MovieVote client:load movieId={movie.id} />
                 <span class="release"> <b>Release:</b> {movie.release} </span>
                 <span class="runtime"> <b> Runtime:</b> {movie.runtime} </span>
                 <span class="genres">  <b>Genres:</b> {movie.genres} </span>
                 <span class="overview" set:html={movie.overview}></span>
+                <MovieVote client:load movieId={movie.id} />
             </div>
         </div>
         <a href={`${baseUrl}/`} class="back"><span>&larr;</span> Back</a>
