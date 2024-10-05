@@ -2,6 +2,7 @@
 import { fade } from "astro:transitions";
 import { Image } from 'astro:assets';
 import MovieVote from '@components/MovieVote.jsx';
+export const prerender = false;
 interface Props {
 	key: number;
 	title: string;
@@ -30,7 +31,7 @@ const { key , href, title, release, body, image} = Astro.props;
 			<p>{release}</p>
 			<div class="excerpt" set:html={body}></div>
 		</div>
-		<MovieVote client:load movieId={key} />
+		<MovieVote client:only="react" movieId={key} />
 	</div>
 </li>
 
