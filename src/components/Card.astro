@@ -1,6 +1,9 @@
 ---
 import { fade } from "astro:transitions";
+import { Image } from 'astro:assets';
+import MovieVote from '../components/MovieVote.jsx';
 interface Props {
+	key: number;
 	title: string;
 	release: string;
 	href: string;
@@ -8,21 +11,29 @@ interface Props {
 	image: string;
 }
 
-const { href, title, release, body, image } = Astro.props;
+const { key , href, title, release, body, image} = Astro.props;
 ---
 
-<li class="link-card" transition:animate={fade({ duration: "2s" })}>
-    <a href={href}>
-        <img class="poster" src={image} alt={title}>
-        <h2>{title} <span>&rarr;</span></h2>
-        <p>{release}</p>
-        <div class="excerpt" set:html={body}></div>
-    </a>
+<li class="card" transition:animate={fade({ duration: "2s" })}>
+	<div class="card-wrapper">
+		<MovieVote client:load movieId={key} />
+		<a href={href}>
+		<Image
+			class="poster"
+			src={image}
+			alt={title}
+			width="220"
+			height="320"
+			loading="lazy"/>
+		</a>
+		<h2><a href={href}>{title} <span>&rarr;</span></a></h2>
+		<p>{release}</p>
+		<div class="excerpt" set:html={body}></div>
+	</div>
 </li>
 
 <style>
-	.link-card {
-		list-style: none;
+	.card {
 		display: flex;
 		padding: 1px;
 		background-color: #23262d;
@@ -33,19 +44,22 @@ const { href, title, release, body, image } = Astro.props;
 		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 	}
-	.link-card > a {
+	.card-wrapper {
 		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
-		color: white;
 		background-color: #23262d;
 		opacity: 0.8;
 	}
-	h2 {
+	h2{
 		margin: 0;
+	}
+	h2 a {
 		font-size: 1.25rem;
+		display: block;
+		color: white;
+		text-decoration: none;
+		line-height: 1.4;
 		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 	.poster {
@@ -56,11 +70,11 @@ const { href, title, release, body, image } = Astro.props;
 		margin-top: 0.5rem;
 		margin-bottom: 0;
 	}
-	.link-card:is(:hover, :focus-within) {
+	.card:is(:hover, :focus-within) {
 		background-position: 0;
-		background-image: var(--accent-gradient);
+		background-image: var(--gradientaccent-);
 	}
-	.link-card:is(:hover, :focus-within) h2 {
+	.card:is(:hover, :focus-within) .card-wrapper {
 		color: rgb(var(--accent-light));
 	}
 </style>

@@ -29,6 +29,7 @@ try {
 		<ul role="list" class="card-grid">
 			{movies.map(movie => (
 				<Card
+					key={movie.id}
 					title={movie.title}
 					release={movie.release}
 					href={`/movie/${movie.slug}/`}
@@ -43,7 +44,7 @@ try {
 	.card-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
+		gap: 24px;
 		padding: 0;
 	}
 </style>

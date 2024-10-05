@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import AstroLogo from '../../components/AstroLogo.astro';
 import { Image } from 'astro:assets';
 import { slideInDown, zoomIn } from '../../utils/animations';
+import MovieVote from '../../components/MovieVote.jsx';
 
 const baseUrl = Astro.site || '';
 
@@ -59,6 +60,7 @@ const movie = movies.find(movie => movie.slug === slug);
                 height="900"
                 loading="eager"/>
             <div class="movie-info">
+                <MovieVote client:load movieId={movie.id} />
                 <span class="release"> <b>Release:</b> {movie.release} </span>
                 <span class="runtime"> <b> Runtime:</b> {movie.runtime} </span>
                 <span class="genres">  <b>Genres:</b> {movie.genres} </span>
