@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./MovieVote.css";
+import "@components/MovieVote.css";
 
 const MovieVote = ({ movieId }) => {
     const [votes, setVotes] = useState(null);
