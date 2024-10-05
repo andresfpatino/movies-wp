@@ -16,19 +16,21 @@ const { key , href, title, release, body, image} = Astro.props;
 
 <li class="card" transition:animate={fade({ duration: "2s" })}>
 	<div class="card-wrapper">
+		<div class="head">
+			<a href={href}>
+				<Image
+					class="poster"
+					src={image}
+					alt={title}
+					width="220"
+					height="320"
+					loading="lazy"/>
+			</a>
+			<h2><a href={href}>{title} <span>&rarr;</span></a></h2>
+			<p>{release}</p>
+			<div class="excerpt" set:html={body}></div>
+		</div>
 		<MovieVote client:load movieId={key} />
-		<a href={href}>
-		<Image
-			class="poster"
-			src={image}
-			alt={title}
-			width="220"
-			height="320"
-			loading="lazy"/>
-		</a>
-		<h2><a href={href}>{title} <span>&rarr;</span></a></h2>
-		<p>{release}</p>
-		<div class="excerpt" set:html={body}></div>
 	</div>
 </li>
 
@@ -50,6 +52,9 @@ const { key , href, title, release, body, image} = Astro.props;
 		border-radius: 8px;
 		background-color: #23262d;
 		opacity: 0.8;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 	h2{
 		margin: 0;
