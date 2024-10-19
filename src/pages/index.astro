@@ -9,7 +9,9 @@ import { slideInDown } from '@utils/animations';
  * If the fetch operation fails or the response is not OK, logs an error message with details.
  */
 const API_URL = 'http://localhost:8881';
+const baseUrl = Astro.site.href || '';
 let movies = [];
+
 try {
 	const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
 	if (!response.ok) {
@@ -32,7 +34,7 @@ try {
 					key={movie.id}
 					title={movie.title}
 					release={movie.release}
-					href={`/movie/${movie.slug}/`}
+					href={`${baseUrl}movie/${movie.slug}/`}
 					image={movie.poster_url}
 				/>
 			))}
