@@ -7,7 +7,7 @@ import MovieVote from '@components/MovieVote.jsx';
 
 const baseUrl = Astro.site || '';
 
-const API_URL = 'http://localhost:8881';
+const API_URL = import.meta.env.PUBLIC_WP_URL;
 let movies = [];
 
 try {

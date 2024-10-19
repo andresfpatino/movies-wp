@@ -8,10 +8,11 @@ import { slideInDown } from '@utils/animations';
  * Fetches a list of movies from the WordPress REST API and assigns it to the `movies` array.
  * If the fetch operation fails or the response is not OK, logs an error message with details.
  */
-const API_URL = 'http://localhost:8881';
+const API_URL = import.meta.env.PUBLIC_WP_URL;
 const baseUrl = Astro.site || '';
 let movies = [];
 
+console.log('API_URL:', API_URL);
 try {
 	const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
 	if (!response.ok) {
