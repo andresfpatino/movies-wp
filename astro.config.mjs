@@ -5,8 +5,8 @@ import vercel from '@astrojs/vercel/serverless';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
-  output: 'hybrid', // Para ISR
-  // output: 'static', // Para SSG
-  // output: 'server', // Para SSR
+  //output: 'hybrid', // Dejara de existir en la version 5.0
+  // output: 'static', // Para SSG por defecto
+  output: 'server', // Para SSR
   adapter: vercel(),
 });
