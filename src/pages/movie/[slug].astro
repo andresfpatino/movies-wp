@@ -4,29 +4,8 @@ import AstroLogo from '@components/AstroLogo.astro';
 import { Image } from 'astro:assets';
 import { slideInDown, zoomIn } from '@utils/animations';
 import MovieVote from '@components/MovieVote.jsx';
-export const prerender = true;
 
 const baseUrl = Astro.site || '';
-
-export async function getStaticPaths() {
-    const API_URL = 'http://localhost:8881';
-    let movies = [];
-
-    try {
-        const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
-        if (!response.ok) {
-            const errorDetails = await response.text();
-            throw new Error(`Error fetching movies: ${response.status} ${response.statusText} - ${errorDetails}`);
-        }
-        movies = await response.json();
-    } catch (error) {
-        console.error('Error loading movies:', error);
-    }
-
-    return movies.map((movie) => ({
-        params: { slug: movie.slug },
-    }));
-}
 
 const API_URL = 'http://localhost:8881';
 let movies = [];
