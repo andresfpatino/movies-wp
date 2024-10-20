@@ -12,7 +12,6 @@ const API_URL = import.meta.env.PUBLIC_WP_URL;
 const baseUrl = Astro.site || '';
 let movies = [];
 
-console.log('API_URL:', API_URL);
 try {
 	const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
 	if (!response.ok) {

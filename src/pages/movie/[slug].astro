@@ -7,6 +7,26 @@ import MovieVote from '@components/MovieVote.jsx';
 
 const baseUrl = Astro.site || '';
 
+export async function getStaticPaths() {
+    const API_URL = 'http://localhost:8881';
+    let movies = [];
+
+    try {
+        const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            throw new Error(`Error fetching movies: ${response.status} ${response.statusText} - ${errorDetails}`);
+        }
+        movies = await response.json();
+    } catch (error) {
+        console.error('Error loading movies:', error);
+    }
+
+    return movies.map((movie) => ({
+        params: { slug: movie.slug },
+    }));
+}
+
 const API_URL = import.meta.env.PUBLIC_WP_URL;
 let movies = [];
 
