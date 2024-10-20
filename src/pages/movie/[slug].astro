@@ -6,11 +6,11 @@ import { slideInDown, zoomIn } from '@utils/animations';
 import MovieVote from '@components/MovieVote.jsx';
 
 const baseUrl = Astro.site || '';
+const API_URL = import.meta.env.PUBLIC_WP_URL;
 
 export async function getStaticPaths() {
-    const API_URL = 'http://localhost:8881';
     let movies = [];
-
+    const API_URL = import.meta.env.PUBLIC_WP_URL;
     try {
         const response = await fetch(`${API_URL}/wp-json/movies/v1/movies`);
         if (!response.ok) {
@@ -27,7 +27,6 @@ export async function getStaticPaths() {
     }));
 }
 
-const API_URL = import.meta.env.PUBLIC_WP_URL;
 let movies = [];
 
 try {

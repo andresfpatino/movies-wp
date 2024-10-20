@@ -9,7 +9,7 @@ import { slideInDown } from '@utils/animations';
  * If the fetch operation fails or the response is not OK, logs an error message with details.
  */
 const API_URL = import.meta.env.PUBLIC_WP_URL;
-const baseUrl = Astro.site || '';
+const baseUrl = Astro.site || '/';
 let movies = [];
 
 try {
