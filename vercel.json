@@ -1,14 +1,13 @@
 {
-    "version": 2,
-    "routes": [
+    "headers": [
         {
-            "src": "/api/movies",
-            "dest": "/api/movies",
-            "headers": {
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            "Pragma": "no-cache",
-            "Expires": "0"
-            }
+            "source": "/wp-json/movies/v1/movies",
+            "headers": [
+                {
+                "key": "Cache-Control",
+                "value": "no-cache, no-store, must-revalidate"
+                }
+            ]
         }
     ]
 }
